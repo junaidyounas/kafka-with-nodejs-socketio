@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+     <head>
+          <title>Socket.IO chat</title>
+          <style>
+               body {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 100vh;
+                    background-color: #f1f1f1;
+               }
+
+               .container {
+                    width: 800px;
+                    padding: 20px;
+                    background-color: #fff;
+                    border-radius: 5px;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+               }
+
+               h2 {
+                    text-align: center;
+                    color: #333;
+               }
+
+               .form-group {
+                    margin-bottom: 15px;
+               }
+
+               label {
+                    display: block;
+                    margin-bottom: 5px;
+                    color: #555;
+               }
+
+               input[type="text"] {
+                    width: 300px;
+                    padding: 10px;
+                    border: none;
+                    border-radius: 4px;
+                    background-color: #f8f8f8;
+                    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+                    transition: box-shadow 0.3s ease-in-out;
+               }
+
+               input[type="text"]:focus {
+                    outline: none;
+                    box-shadow: 0 0 6px rgba(76, 175, 80, 0.5);
+               }
+
+               button[type="submit"] {
+                    background-color: #4caf50;
+                    color: #fff;
+                    padding: 10px 20px;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    font-size: 16px;
+                    font-weight: bold;
+                    transition: background-color 0.3s ease-in-out;
+               }
+
+               button[type="submit"]:hover {
+                    background-color: #45a049;
+               }
+          </style>
+     </head>
+     <body>
+          <ul id="messages"></ul>
+          <form id="form" action="">
+               <h2>Send push notification</h2>
+               <div class="form-group">
+                    <label for="inputTitle">Title:</label>
+                    <input type="text" id="title" name="inputTitle" required />
+               </div>
+               <div class="form-group">
+                    <label for="inputValue">Value:</label>
+                    <input type="text" id="value" name="inputValue" required />
+               </div>
+               <div class="form-group">
+                    <button type="submit">Submit</button>
+               </div>
+          </form>
+     </body>
+     <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+     <script>
+          var socket = io();
+
+          var form = document.getElementById("form");
+          var title = document.getElementById("title");
+          var value = document.getElementById("value");
+
+          form.addEventListener("submit", function (e) {
+               e.preventDefault();
+               if (title.value && value.value) {
+                    socket.emit("chat message", {
+                         value: value.value,
+                         title: title.value,
+                    });
+                    title.value = "";
+                    value.value = "";
+               }
+          });
+     </script>
+     <script>
+          var socket = io();
+     </script>
+</html>
